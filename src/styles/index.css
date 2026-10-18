@@ -1,0 +1,382 @@
+@import "tailwindcss";
+@import "@fontsource-variable/bodoni-moda";
+@import "@fontsource-variable/bodoni-moda/wght-italic.css";
+@import "@fontsource/tenor-sans";
+@import "@fontsource-variable/albert-sans";
+
+/* Devices with a real pointer. Touch screens get explicit controls instead of hover. */
+@custom-variant hover-device (@media (hover: hover) and (pointer: fine));
+
+/*
+  Design tokens. Every colour, font, shadow and easing on the site comes from here.
+
+  BowLifestyle is a lookbook that sells: a clean warm-white page, true off-black ink for
+  type and primary buttons, and one burnished bronze taken from the logo's sunburst for
+  ornament, sale tags, focus and active states. Photography carries the colour.
+  Type: Bodoni Moda (echoes the logo's high-contrast serif) for large display lines,
+  Tenor Sans in wide-tracked capitals for titles, nav and buttons, Albert Sans for reading.
+  Shape: square corners everywhere. Only round things that are actually round (dots, swatches).
+*/
+@theme {
+  --color-paper: #fcfbf9;
+  --color-stone: #f1efeb;
+  --color-stone-deep: #e6e2db;
+  --color-ink: #151413;
+  --color-ink-soft: #5f5a54;
+  --color-ink-hover: #3a3531;
+  --color-bronze: #9b6428;
+  --color-bronze-bright: #c08a4a;
+  --color-bronze-soft: #efe3d2;
+  --color-line: rgb(21 20 19 / 0.1);
+  --color-line-strong: rgb(21 20 19 / 0.24);
+  --color-success: #2f6b4a;
+  --color-danger: #b42318;
+
+  --font-display: "Bodoni Moda Variable", "Bodoni Moda", "Didot", Georgia, serif;
+  --font-caps: "Tenor Sans", "Gill Sans", ui-sans-serif, sans-serif;
+  --font-sans: "Albert Sans Variable", "Albert Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-float: 0 12px 32px -16px rgb(21 20 19 / 0.28);
+  --shadow-lift: 0 28px 64px -28px rgb(21 20 19 / 0.4);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-wipe: cubic-bezier(0.65, 0, 0.15, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--color-stone-deep) var(--color-paper);
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    font-size: 15px;
+    -webkit-tap-highlight-color: transparent;
+    caret-color: var(--color-bronze);
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--color-bronze);
+    outline-offset: 3px;
+  }
+
+  button,
+  [role="button"],
+  a,
+  label[for],
+  select {
+    cursor: pointer;
+  }
+
+  button {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  img,
+  video {
+    -webkit-user-drag: none;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  a {
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-stone-deep);
+    border: 3px solid var(--color-paper);
+  }
+}
+
+@layer components {
+  /* Page gutter + max width shared by every section, so edges line up down the page. */
+  .shell {
+    @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10;
+  }
+
+  /* Large display lines. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 450;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  /* Wide-tracked capitals: titles, nav, buttons, labels. Tenor has one weight; never fake bold. */
+  .caps {
+    font-family: var(--font-caps);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  /* Field styles shared by checkout, newsletter, pincode, search. */
+  .field {
+    @apply h-12 w-full border border-line-strong bg-white px-4 text-[15px] text-ink outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-ink-soft;
+  }
+  .field:focus {
+    border-color: var(--color-ink);
+    box-shadow: inset 0 0 0 1px var(--color-ink);
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--color-danger);
+  }
+
+  /* Text link with a hairline that draws in from the left on hover. */
+  .link-line {
+    position: relative;
+    padding-block: 2px;
+  }
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 300ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .link-line:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+  .link-line[aria-current="page"]::after,
+  .link-line[data-active="true"]::after {
+    transform: scaleX(1);
+  }
+
+  /* Permanent underline that thins on hover: "View all" style links. */
+  .link-under {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 6px;
+    transition: text-decoration-color 200ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .link-under:hover {
+      text-decoration-color: var(--color-bronze);
+    }
+  }
+
+  /* Pressable: a small scale-down on press so taps feel physical. */
+  .press {
+    transition: transform 160ms var(--ease-out);
+  }
+  .press:active {
+    transform: scale(0.97);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Motion primitives. Every keyframe below is skipped under prefers-reduced-motion. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes pop {
+  40% {
+    transform: scale(1.28);
+  }
+}
+@keyframes bump {
+  35% {
+    transform: scale(1.35);
+  }
+}
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--len, 60);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes shake {
+  20%,
+  60% {
+    transform: translateX(-4px);
+  }
+  40%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+/* The house reveal: a frame uncovers from the bottom edge up, like a blind lifting. */
+@keyframes wipe-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes settle {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes sun-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-fade-up {
+    animation: fade-up 650ms var(--ease-out) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  .anim-fade-in {
+    animation: fade-in 450ms ease both;
+    animation-delay: var(--delay, 0ms);
+  }
+  .anim-pop {
+    animation: pop 420ms var(--ease-out);
+  }
+  .anim-bump {
+    animation: bump 450ms var(--ease-out);
+  }
+  .anim-shake {
+    animation: shake 360ms ease;
+  }
+  .anim-draw {
+    stroke-dasharray: var(--len, 60);
+    animation: draw 600ms var(--ease-out) 200ms both;
+  }
+  .anim-wipe {
+    animation: wipe-up 1100ms var(--ease-wipe) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  .anim-wipe > img,
+  .anim-wipe .settle {
+    animation: settle 1600ms var(--ease-out) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  /* Scroll reveal: text fades up; photo frames wipe up. Content is visible by default
+     and only hidden once the observer has armed it, so nothing is lost without JS. */
+  [data-reveal="armed"] {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  [data-reveal="in"] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms var(--ease-out),
+      transform 900ms var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal-frame="armed"] {
+    clip-path: inset(100% 0 0 0);
+  }
+  [data-reveal-frame="in"] {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1100ms var(--ease-wipe);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .hero-progress {
+    animation: progress var(--duration) linear forwards;
+  }
+  .hero-progress[data-paused="true"] {
+    animation-play-state: paused;
+  }
+
+  .sun-slow {
+    animation: sun-turn 60s linear infinite;
+  }
+
+  .page-enter {
+    animation: fade-in 400ms ease both;
+  }
+}
+
+.hero-progress {
+  transform-origin: left;
+}
+
+/* Lenis smooth scroll. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
