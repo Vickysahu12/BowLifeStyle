@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-18T09:00:00+05:30",
+  "title": "Design System: BowLifestyle",
+  "extensions": {
+    "colorMeta": {
+      "true-ink": { "role": "primary", "displayName": "True Ink", "canonical": "#151413", "tonalRamp": ["#151413", "#2a2725", "#3a3531", "#5f5a54", "#8a847d", "#b5b0aa", "#dcd8d3", "#f1efeb"] },
+      "burnished-bronze": { "role": "secondary", "displayName": "Burnished Bronze", "canonical": "#9b6428", "tonalRamp": ["#3d260e", "#5e3b17", "#7d4f20", "#9b6428", "#c08a4a", "#d8ac78", "#e9cfae", "#f6ebdd"] },
+      "warm-paper": { "role": "neutral", "displayName": "Warm Paper", "canonical": "#fcfbf9", "tonalRamp": ["#5f5a54", "#8a847d", "#b5b0aa", "#d4cfc8", "#e6e2db", "#f1efeb", "#f8f6f3", "#fcfbf9"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Large remembered lines only: hero, film, story, squad, thank-you." },
+      "caps": { "displayName": "Capitals", "purpose": "Section and page titles, nav, buttons, tags, product names." },
+      "body": { "displayName": "Body", "purpose": "Everything read: descriptions, forms, captions." }
+    },
+    "shadows": [
+      { "name": "float", "value": "0 12px 32px -16px rgb(21 20 19 / 0.28)", "purpose": "Small floating controls." },
+      { "name": "lift", "value": "0 28px 64px -28px rgb(21 20 19 / 0.4)", "purpose": "Drawers, mega panel, search, modals, toasts." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Entrances and UI feedback." },
+      { "name": "ease-wipe", "value": "cubic-bezier(0.65, 0, 0.15, 1)", "purpose": "Bottom-edge clip reveals of photo frames (1100ms)." },
+      { "name": "ease-drawer", "value": "cubic-bezier(0.32, 0.72, 0, 1)", "purpose": "Drawers and search panel." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1536px" }
+    ],
+    "components": [
+      { "name": "button-primary", "html": "<button class=\"btn\">Add to bag</button>", "css": ".btn{height:48px;padding:0 32px;background:#151413;color:#fcfbf9;border:0;border-radius:0;font:400 12px 'Tenor Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase}" },
+      { "name": "product-tag", "html": "<span class=\"tag\">17% off</span>", "css": ".tag{display:inline-block;padding:3px 6px;border:1px solid rgb(21 20 19/.8);background:#fcfbf9;color:#151413;font:400 9px 'Tenor Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}" },
+      { "name": "field", "html": "<input class=\"field\" placeholder=\"Enter 6-digit pincode\">", "css": ".field{height:48px;width:100%;padding:0 16px;border:1px solid rgb(21 20 19/.24);background:#fff;border-radius:0;font:15px 'Albert Sans',sans-serif}.field:focus{outline:0;border-color:#151413;box-shadow:inset 0 0 0 1px #151413}" }
+    ],
+    "narrative": {
+      "northStar": "The Lookbook That Sells",
+      "keyCharacteristics": [
+        "Warm-white ground, true off-black ink, one burnished bronze from the logo.",
+        "Square corners everywhere; only genuinely round things are round.",
+        "Tenor Sans capitals for titles, nav, buttons and tags; Bodoni Moda for large display lines only.",
+        "2:3 portrait photography, captions centred under the frame.",
+        "The logo's sunburst is the single ornament, used once per surface."
+      ],
+      "rules": [
+        { "section": "Colors", "text": "The One Metal Rule. Bronze marks value and state (sale, rating, focus, saved), never decoration." },
+        { "section": "Typography", "text": "The No Fake Bold Rule. Tenor Sans has one weight. Never set it bold." }
+      ],
+      "dos": ["Let photography carry colour; keep UI ink, paper and bronze.", "Use Tenor capitals for every title and label.", "Keep every corner square.", "Mark sample data as sample data."],
+      "donts": ["Don't add eyebrows above section titles.", "Don't use rounded cards, pills or coloured status badges.", "Don't set Tenor Sans bold.", "Don't use bronze as a large background."]
+    }
+  }
+}
