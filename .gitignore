@@ -25,3 +25,8 @@ dist-ssr
 
 # Impeccable review captures
 .impeccable/review
+
+# Design notes from the Impeccable skill (kept locally, not in the repo)
+.impeccable/
+PRODUCT.md
+DESIGN.md
