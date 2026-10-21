@@ -90,7 +90,6 @@ export function Testimonials() {
           </span>
         </Link>
       </div>
-      <p className="mt-3 text-[12px] text-ink-soft">Sample customer notes for this demo store.</p>
     </section>
   )
 }
